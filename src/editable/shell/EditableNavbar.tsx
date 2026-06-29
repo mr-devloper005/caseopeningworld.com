@@ -20,8 +20,8 @@ export function EditableNavbar() {
     <header className="sticky top-0 z-50 border-b border-[var(--editable-border)] bg-[var(--editable-nav-bg)]/95 text-[var(--editable-nav-text)] backdrop-blur-md">
       <nav className="mx-auto flex min-h-[72px] w-full max-w-[var(--editable-container)] items-center gap-6 px-4 sm:px-6 lg:px-8">
         <Link href="/" className="group flex shrink-0 items-center gap-3">
-          <span className="flex h-10 w-10 items-center justify-center rounded-xl bg-[var(--slot4-accent)] shadow-[0_6px_18px_rgba(20,136,191,0.35)] transition group-hover:scale-105">
-            <img src="/favicon.png?v=20260413" alt={SITE_CONFIG.name} className="h-6 w-6 object-contain brightness-0 invert" />
+          <span className="flex h-11 w-11 items-center justify-center overflow-hidden rounded-xl border border-[var(--editable-border)] bg-white shadow-[0_6px_18px_rgba(57,177,209,0.22)] transition group-hover:scale-105">
+            <img src="/favicon.png?v=20260413" alt={SITE_CONFIG.name} className="h-8 w-8 object-contain" />
           </span>
           <span className="min-w-0">
             <span className="editable-display block max-w-[220px] truncate text-[1.35rem] font-semibold leading-none tracking-[-0.01em]">{SITE_CONFIG.name}</span>
@@ -63,7 +63,7 @@ export function EditableNavbar() {
             <>
               <Link
                 href="/create"
-                className="hidden items-center gap-2 rounded-full bg-[var(--editable-cta-bg)] px-5 py-2.5 text-sm font-bold text-[var(--editable-cta-text)] shadow-[0_6px_18px_rgba(20,136,191,0.32)] transition hover:brightness-110 sm:inline-flex"
+                className="hidden items-center gap-2 rounded-full bg-[var(--editable-cta-bg)] px-5 py-2.5 text-sm font-bold text-[var(--editable-cta-text)] shadow-[0_6px_18px_rgba(57,177,209,0.32)] transition hover:brightness-110 sm:inline-flex"
               >
                 <PlusCircle className="h-4 w-4" /> Create
               </Link>
@@ -85,7 +85,7 @@ export function EditableNavbar() {
               </Link>
               <Link
                 href="/signup"
-                className="hidden items-center gap-2 rounded-full bg-[var(--editable-cta-bg)] px-5 py-2.5 text-sm font-bold text-[var(--editable-cta-text)] shadow-[0_6px_18px_rgba(20,136,191,0.32)] transition hover:brightness-110 sm:inline-flex"
+                className="hidden items-center gap-2 rounded-full bg-[var(--editable-cta-bg)] px-5 py-2.5 text-sm font-bold text-[var(--editable-cta-text)] shadow-[0_6px_18px_rgba(57,177,209,0.32)] transition hover:brightness-110 sm:inline-flex"
               >
                 <UserPlus className="h-4 w-4" /> Sign up
               </Link>

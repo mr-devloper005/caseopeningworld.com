@@ -48,10 +48,10 @@ const base = {
   text: '#0f1d2e',
   muted: '#51627a',
   line: '#e2e8f1',
-  accent: '#1488bf',
-  accentSoft: '#e4f4fb',
+  accent: '#39b1d1',
+  accentSoft: '#e7f6fb',
   onAccent: '#ffffff',
-  glow: 'rgba(20,136,191,0.10)',
+  glow: 'rgba(57,177,209,0.12)',
   radius: '1rem',
 } satisfies Omit<TaskTheme, 'kicker' | 'note'>
 

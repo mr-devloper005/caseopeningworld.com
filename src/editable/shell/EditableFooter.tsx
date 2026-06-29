@@ -13,13 +13,13 @@ export function EditableFooter() {
   return (
     <footer className="relative overflow-hidden bg-[var(--editable-footer-bg)] text-[var(--editable-footer-text)]">
       <div className="pointer-events-none absolute -right-40 -top-40 h-96 w-96 rounded-full bg-[var(--slot4-accent)]/20 blur-3xl" />
-      <div className="pointer-events-none absolute -left-32 bottom-0 h-80 w-80 rounded-full bg-[#6f4bd0]/20 blur-3xl" />
+      <div className="pointer-events-none absolute -left-32 bottom-0 h-80 w-80 rounded-full bg-[var(--slot4-amber)]/20 blur-3xl" />
 
       <div className="relative mx-auto grid max-w-[var(--editable-container)] gap-12 px-4 py-16 sm:px-6 lg:grid-cols-[1.4fr_1fr_1fr] lg:px-8">
         <div>
           <Link href="/" className="inline-flex items-center gap-3">
-            <span className="flex h-11 w-11 items-center justify-center rounded-xl bg-[var(--slot4-accent)] shadow-[0_8px_24px_rgba(20,136,191,0.45)]">
-              <img src="/favicon.png?v=20260413" alt={SITE_CONFIG.name} className="h-6 w-6 object-contain brightness-0 invert" />
+            <span className="flex h-12 w-12 items-center justify-center overflow-hidden rounded-xl border border-white/15 bg-white shadow-[0_8px_24px_rgba(57,177,209,0.4)]">
+              <img src="/favicon.png?v=20260413" alt={SITE_CONFIG.name} className="h-9 w-9 object-contain" />
             </span>
             <span className="editable-display text-2xl font-semibold tracking-[-0.01em]">{SITE_CONFIG.name}</span>
           </Link>

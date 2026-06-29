@@ -12,13 +12,14 @@ export const editableRootStyle = {
   '--slot4-surface-bg': '#ffffff',
   '--slot4-muted-text': '#51627a',
   '--slot4-soft-muted-text': '#8593a8',
-  '--slot4-accent': '#1488bf',
-  '--slot4-accent-fill': '#1488bf',
-  '--slot4-accent-soft': '#e4f4fb',
+  // Brand palette (exact): cyan #39B1D1, lime #D6FB61, amber #F6850C, coral #DE3E3E.
+  '--slot4-accent': '#39b1d1',
+  '--slot4-accent-fill': '#39b1d1',
+  '--slot4-accent-soft': '#e7f6fb',
   '--slot4-on-accent': '#ffffff',
-  // Bright secondary accents (brand palette) — used for badges / chips variety.
+  // Secondary brand accents — used for badges / chips variety.
   '--slot4-bright': '#39b1d1',
-  '--slot4-lime': '#cdf24a',
+  '--slot4-lime': '#d6fb61',
   '--slot4-amber': '#f6850c',
   '--slot4-coral': '#de3e3e',
   '--slot4-dark-bg': '#0c1626',
@@ -29,18 +30,18 @@ export const editableRootStyle = {
   '--slot4-lavender': '#f6f9fc',
   '--slot4-gray': '#f3f7fb',
   '--slot4-body-gradient': 'none',
-  // Signature dark gradient used by the hero + CTA bands.
+  // Signature dark gradient used by the hero + CTA bands (navy → brand cyan).
   '--slot4-hero-gradient':
-    'linear-gradient(118deg, #0a1422 0%, #0f2c52 38%, #1f6fb0 64%, #6f4bd0 100%)',
+    'linear-gradient(118deg, #0a1422 0%, #103a5e 40%, #1f7fae 70%, #39b1d1 100%)',
   '--editable-page-bg': '#ffffff',
   '--editable-page-text': '#0f1d2e',
   '--editable-container': '1240px',
   '--editable-border': '#e2e8f1',
   '--editable-nav-bg': '#ffffff',
   '--editable-nav-text': '#0f1d2e',
-  '--editable-nav-active': '#1488bf',
+  '--editable-nav-active': '#39b1d1',
   '--editable-nav-active-text': '#ffffff',
-  '--editable-cta-bg': '#1488bf',
+  '--editable-cta-bg': '#39b1d1',
   '--editable-cta-text': '#ffffff',
   '--editable-search-bg': '#ffffff',
   '--editable-footer-bg': '#0c1626',

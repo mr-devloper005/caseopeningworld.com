@@ -33,6 +33,29 @@ function categoryOf(post?: SitePost | null) {
 
 const container = 'mx-auto w-full max-w-[var(--editable-container)] px-4 sm:px-6 lg:px-8'
 
+// Brand palette in use across the site. Solid badges rotate through all four
+// colors; lime gets dark ink for legibility, the rest get white.
+const brandBadges = [
+  { bg: 'var(--slot4-bright)', on: '#ffffff' }, // cyan  #39B1D1
+  { bg: 'var(--slot4-amber)', on: '#ffffff' },  // amber #F6850C
+  { bg: 'var(--slot4-coral)', on: '#ffffff' },  // coral #DE3E3E
+  { bg: 'var(--slot4-lime)', on: '#0f1d2e' },   // lime  #D6FB61
+]
+// Readable-on-white text accents (lime excluded — too light for text).
+const brandTextAccents = ['var(--slot4-bright)', 'var(--slot4-amber)', 'var(--slot4-coral)']
+
+function hashKey(value: string) {
+  let h = 0
+  for (let i = 0; i < value.length; i += 1) h = (h * 31 + value.charCodeAt(i)) >>> 0
+  return h
+}
+function badgeTint(key: string) {
+  return brandBadges[hashKey(key || 'x') % brandBadges.length]
+}
+function textTint(key: string) {
+  return brandTextAccents[hashKey(key || 'x') % brandTextAccents.length]
+}
+
 // Latest posts' real images (newest first, deduped, placeholders dropped).
 function latestPostImages(posts: SitePost[], max = 8) {
   const seen = new Set<string>()
@@ -78,7 +101,7 @@ export function EditableHomeHero({ posts, timeSections }: HomeSectionProps) {
   return (
     <section className="relative overflow-hidden text-white" style={{ backgroundImage: 'var(--slot4-hero-gradient)' }}>
       <div className="pointer-events-none absolute -right-24 -top-24 h-96 w-96 rounded-full bg-white/10 blur-3xl" />
-      <div className="pointer-events-none absolute -bottom-32 left-1/3 h-96 w-96 rounded-full bg-[#6f4bd0]/30 blur-3xl" />
+      <div className="pointer-events-none absolute -bottom-32 left-1/3 h-96 w-96 rounded-full bg-[var(--slot4-bright)]/30 blur-3xl" />
 
       <div className={`relative grid items-center gap-12 py-16 sm:py-20 lg:grid-cols-[1.05fr_0.95fr] lg:py-28 ${container}`}>
         <div className="max-w-2xl">
@@ -134,12 +157,17 @@ export function EditableHomeHero({ posts, timeSections }: HomeSectionProps) {
       {/* Stats band */}
       <div className="relative border-t border-white/10 bg-black/15">
         <div className={`grid grid-cols-2 gap-y-8 py-9 lg:grid-cols-4 ${container}`}>
-          {stats.map((stat, index) => (
-            <div key={stat.label} className={`px-2 ${index !== 0 ? 'lg:border-l lg:border-white/12 lg:pl-8' : ''}`}>
-              <p className="editable-display text-3xl font-semibold tracking-[-0.02em] sm:text-4xl">{stat.value}</p>
-              <p className="mt-1.5 text-xs font-semibold uppercase tracking-[0.18em] text-white/60">{stat.label}</p>
-            </div>
-          ))}
+          {stats.map((stat, index) => {
+            const colors = ['var(--slot4-bright)', 'var(--slot4-lime)', 'var(--slot4-amber)', 'var(--slot4-coral)']
+            const color = colors[index % colors.length]
+            return (
+              <div key={stat.label} className={`px-2 ${index !== 0 ? 'lg:border-l lg:border-white/12 lg:pl-8' : ''}`}>
+                <span className="block h-1 w-9 rounded-full" style={{ backgroundColor: color }} />
+                <p className="editable-display mt-3 text-3xl font-semibold tracking-[-0.02em] sm:text-4xl" style={{ color }}>{stat.value}</p>
+                <p className="mt-1.5 text-xs font-semibold uppercase tracking-[0.18em] text-white/60">{stat.label}</p>
+              </div>
+            )
+          })}
         </div>
       </div>
     </section>
@@ -158,12 +186,13 @@ export function EditableStoryRail(_props: HomeSectionProps) {
 function FeaturedCard({ post, href }: { post: SitePost; href: string }) {
   const image = getEditablePostImage(post)
   const category = categoryOf(post)
+  const tint = badgeTint(post.slug || category || post.title)
   return (
     <Link href={href} className="group relative flex min-h-[420px] flex-col justify-end overflow-hidden rounded-[1.5rem] border border-[var(--editable-border)] lg:min-h-full">
       <img src={image} alt={post.title} className="absolute inset-0 h-full w-full object-cover transition duration-700 group-hover:scale-[1.04]" loading="lazy" />
       <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(7,16,28,0.05)_30%,rgba(7,16,28,0.9))]" />
       <div className="relative z-10 p-7 sm:p-9 text-white">
-        <span className="inline-flex items-center gap-2 rounded-full bg-[var(--slot4-accent)] px-3.5 py-1 text-[11px] font-bold uppercase tracking-[0.16em]">
+        <span className="inline-flex items-center gap-2 rounded-full px-3.5 py-1 text-[11px] font-bold uppercase tracking-[0.16em]" style={{ backgroundColor: tint.bg, color: tint.on }}>
           {category || 'Featured'}
         </span>
         <h3 className="editable-display mt-5 max-w-xl text-3xl font-semibold leading-tight tracking-[-0.02em] sm:text-4xl">{post.title}</h3>
@@ -185,7 +214,7 @@ function HorizontalCard({ post, href }: { post: SitePost; href: string }) {
         <img src={image} alt={post.title} className="absolute inset-0 h-full w-full object-cover transition duration-500 group-hover:scale-[1.06]" loading="lazy" />
       </div>
       <div className="flex min-w-0 flex-col justify-center py-1 pr-2">
-        {category ? <p className="text-[11px] font-bold uppercase tracking-[0.16em] text-[var(--slot4-accent)]">{category}</p> : null}
+        {category ? <p className="text-[11px] font-bold uppercase tracking-[0.16em]" style={{ color: textTint(category) }}>{category}</p> : null}
         <h3 className="editable-display mt-1.5 line-clamp-2 text-lg font-semibold leading-snug tracking-[-0.01em] group-hover:text-[var(--slot4-accent)]">{post.title}</h3>
         <p className="mt-2 line-clamp-2 text-sm leading-6 text-[var(--slot4-muted-text)]">{getExcerpt(post, 110)}</p>
       </div>
@@ -226,6 +255,7 @@ export function EditableMagazineSplit({ primaryTask, primaryRoute, posts, timeSe
 function ImageFirstCard({ post, href }: { post: SitePost; href: string }) {
   const category = categoryOf(post)
   const image = getEditablePostImage(post)
+  const tint = badgeTint(post.slug || category || post.title)
   return (
     <Link
       href={href}
@@ -234,7 +264,7 @@ function ImageFirstCard({ post, href }: { post: SitePost; href: string }) {
       <div className="relative aspect-[3/2] overflow-hidden bg-[var(--slot4-media-bg)]">
         <img src={image} alt={post.title} className="absolute inset-0 h-full w-full object-cover transition duration-500 group-hover:scale-[1.05]" loading="lazy" />
         {category ? (
-          <span className="absolute left-3 top-3 rounded-full bg-white/95 px-3 py-1 text-[11px] font-bold text-[var(--slot4-page-text)] shadow-sm backdrop-blur">{category}</span>
+          <span className="absolute left-3 top-3 rounded-full px-3 py-1 text-[11px] font-bold shadow-sm" style={{ backgroundColor: tint.bg, color: tint.on }}>{category}</span>
         ) : null}
       </div>
       <div className="flex flex-1 flex-col p-5">
@@ -252,13 +282,14 @@ function ImageFirstCard({ post, href }: { post: SitePost; href: string }) {
 
 function EditorialRow({ post, href, index }: { post: SitePost; href: string; index: number }) {
   const category = categoryOf(post)
+  const accent = textTint(post.slug || category || String(index))
   return (
     <Link href={href} className="group flex items-start gap-5 border-b border-[var(--editable-border)] py-5 last:border-b-0">
-      <span className="editable-display shrink-0 text-3xl font-semibold leading-none text-[var(--slot4-soft-muted-text)] transition group-hover:text-[var(--slot4-accent)]">
+      <span className="editable-display shrink-0 text-3xl font-semibold leading-none transition" style={{ color: accent }}>
         {String(index + 1).padStart(2, '0')}
       </span>
       <div className="min-w-0">
-        {category ? <p className="text-[11px] font-bold uppercase tracking-[0.16em] text-[var(--slot4-accent)]">{category}</p> : null}
+        {category ? <p className="text-[11px] font-bold uppercase tracking-[0.16em]" style={{ color: accent }}>{category}</p> : null}
         <h3 className="editable-display mt-1 line-clamp-2 text-lg font-semibold leading-snug tracking-[-0.01em] group-hover:text-[var(--slot4-accent)]">{post.title}</h3>
         <p className="mt-1.5 line-clamp-1 text-sm text-[var(--slot4-muted-text)]">{getExcerpt(post, 90)}</p>
       </div>
