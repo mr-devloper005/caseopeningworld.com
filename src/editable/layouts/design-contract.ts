@@ -1,39 +1,50 @@
 import type { CSSProperties } from 'react'
 
 export const editableRootStyle = {
-  // Yelp-style system: clean white surfaces, signature red accent, hairline
-  // gray borders, near-black text. Flat (no gradients), generous and premium.
+  // Clean editorial-magazine system inspired by a connected-platform look:
+  // crisp white surfaces, a deep-navy ink, a confident cyan primary, and a
+  // small family of bright accents (lime / amber / coral) used sparingly to
+  // give cards and chips variety. A navy→blue→violet gradient powers dark
+  // hero and call-to-action bands.
   '--slot4-page-bg': '#ffffff',
-  '--slot4-page-text': '#1a1a1a',
-  '--slot4-panel-bg': '#f7f7f7',
+  '--slot4-page-text': '#0f1d2e',
+  '--slot4-panel-bg': '#f3f7fb',
   '--slot4-surface-bg': '#ffffff',
-  '--slot4-muted-text': '#6b6b6b',
-  '--slot4-soft-muted-text': '#999999',
-  '--slot4-accent': '#d32323',
-  '--slot4-accent-fill': '#d32323',
-  '--slot4-accent-soft': '#fdecec',
+  '--slot4-muted-text': '#51627a',
+  '--slot4-soft-muted-text': '#8593a8',
+  '--slot4-accent': '#1488bf',
+  '--slot4-accent-fill': '#1488bf',
+  '--slot4-accent-soft': '#e4f4fb',
   '--slot4-on-accent': '#ffffff',
-  '--slot4-dark-bg': '#1a1a1a',
+  // Bright secondary accents (brand palette) — used for badges / chips variety.
+  '--slot4-bright': '#39b1d1',
+  '--slot4-lime': '#cdf24a',
+  '--slot4-amber': '#f6850c',
+  '--slot4-coral': '#de3e3e',
+  '--slot4-dark-bg': '#0c1626',
   '--slot4-dark-text': '#ffffff',
-  '--slot4-media-bg': '#eeeeee',
+  '--slot4-media-bg': '#e7eef6',
   '--slot4-cream': '#ffffff',
-  '--slot4-warm': '#f7f7f7',
-  '--slot4-lavender': '#ffffff',
-  '--slot4-gray': '#f7f7f7',
+  '--slot4-warm': '#f3f7fb',
+  '--slot4-lavender': '#f6f9fc',
+  '--slot4-gray': '#f3f7fb',
   '--slot4-body-gradient': 'none',
+  // Signature dark gradient used by the hero + CTA bands.
+  '--slot4-hero-gradient':
+    'linear-gradient(118deg, #0a1422 0%, #0f2c52 38%, #1f6fb0 64%, #6f4bd0 100%)',
   '--editable-page-bg': '#ffffff',
-  '--editable-page-text': '#1a1a1a',
-  '--editable-container': '1500px',
-  '--editable-border': '#e6e6e6',
+  '--editable-page-text': '#0f1d2e',
+  '--editable-container': '1240px',
+  '--editable-border': '#e2e8f1',
   '--editable-nav-bg': '#ffffff',
-  '--editable-nav-text': '#1a1a1a',
-  '--editable-nav-active': '#d32323',
+  '--editable-nav-text': '#0f1d2e',
+  '--editable-nav-active': '#1488bf',
   '--editable-nav-active-text': '#ffffff',
-  '--editable-cta-bg': '#d32323',
+  '--editable-cta-bg': '#1488bf',
   '--editable-cta-text': '#ffffff',
   '--editable-search-bg': '#ffffff',
-  '--editable-footer-bg': '#ffffff',
-  '--editable-footer-text': '#1a1a1a',
+  '--editable-footer-bg': '#0c1626',
+  '--editable-footer-text': '#ffffff',
 } as CSSProperties
 
 export const editablePalette = {
@@ -83,17 +94,17 @@ export const editableDesignContract = {
     body: 'text-base leading-relaxed',
   },
   surface: {
-    card: `rounded-xl border ${editablePalette.border} ${editablePalette.surfaceBg} ${editablePalette.shadow}`,
-    soft: `rounded-xl border ${editablePalette.border} ${editablePalette.panelBg}`,
-    dark: `rounded-xl ${editablePalette.darkBg} ${editablePalette.darkText} ${editablePalette.shadowStrong}`,
+    card: `rounded-2xl border ${editablePalette.border} ${editablePalette.surfaceBg} ${editablePalette.shadow}`,
+    soft: `rounded-2xl border ${editablePalette.border} ${editablePalette.panelBg}`,
+    dark: `rounded-2xl ${editablePalette.darkBg} ${editablePalette.darkText} ${editablePalette.shadowStrong}`,
   },
   button: {
-    primary: `inline-flex items-center justify-center gap-2 rounded-lg bg-[var(--slot4-accent-fill)] px-6 py-3 text-sm font-bold tracking-[0.01em] text-[var(--slot4-on-accent)] transition duration-200 hover:brightness-95 active:scale-[0.98]`,
-    secondary: `inline-flex items-center justify-center gap-2 rounded-lg border border-[var(--editable-border)] bg-[var(--slot4-surface-bg)] px-6 py-3 text-sm font-bold tracking-[0.01em] text-[var(--slot4-page-text)] transition duration-200 hover:border-[var(--slot4-accent)] hover:text-[var(--slot4-accent)] active:scale-[0.98]`,
-    accent: `inline-flex items-center justify-center gap-2 rounded-lg ${editablePalette.accentBg} px-6 py-3 text-sm font-bold text-[var(--slot4-on-accent)] transition duration-200 hover:brightness-95 active:scale-[0.98]`,
+    primary: `inline-flex items-center justify-center gap-2 rounded-full bg-[var(--slot4-accent-fill)] px-7 py-3 text-sm font-bold tracking-[0.01em] text-[var(--slot4-on-accent)] transition duration-200 hover:brightness-110 active:scale-[0.98]`,
+    secondary: `inline-flex items-center justify-center gap-2 rounded-full border border-[var(--editable-border)] bg-[var(--slot4-surface-bg)] px-7 py-3 text-sm font-bold tracking-[0.01em] text-[var(--slot4-page-text)] transition duration-200 hover:border-[var(--slot4-accent)] hover:text-[var(--slot4-accent)] active:scale-[0.98]`,
+    accent: `inline-flex items-center justify-center gap-2 rounded-full ${editablePalette.accentBg} px-7 py-3 text-sm font-bold text-[var(--slot4-on-accent)] transition duration-200 hover:brightness-110 active:scale-[0.98]`,
   },
   media: {
-    frame: `relative overflow-hidden rounded-xl ${editablePalette.mediaBg}`,
+    frame: `relative overflow-hidden rounded-2xl ${editablePalette.mediaBg}`,
     ratio: 'aspect-[2/3]',
   },
   motion: {
