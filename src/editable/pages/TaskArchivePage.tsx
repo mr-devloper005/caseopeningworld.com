@@ -68,6 +68,15 @@ const taskGrid: Record<TaskKey, string> = {
 // Shared premium surface: hairline border, soft radius, smooth lift on hover.
 const cardBase = 'group block rounded-[var(--tk-radius)] border border-[var(--tk-line)] bg-[var(--tk-surface)] transition duration-500 hover:-translate-y-1.5 hover:shadow-[0_32px_72px_rgba(15,23,42,0.14)]'
 
+// Brand palette badges used across archive cards for colour variety.
+const brandBadges = [
+  { bg: '#39b1d1', on: '#ffffff' }, // cyan
+  { bg: '#f6850c', on: '#ffffff' }, // amber
+  { bg: '#de3e3e', on: '#ffffff' }, // coral
+  { bg: '#d6fb61', on: '#0f1d2e' }, // lime
+]
+const badgeTint = (key: string) => brandBadges[hashStr(key || 'x') % brandBadges.length]
+
 export async function EditableTaskArchiveRoute({
   task,
   searchParams,
@@ -289,11 +298,16 @@ function ClassifiedArchiveCard({ post, href }: { post: SitePost; href: string })
 
 function ImageArchiveCard({ post, href, index }: { post: SitePost; href: string; index: number }) {
   const image = getImage(post)
+  const category = getCategory(post, 'Photo')
+  const tint = badgeTint(post.slug || category || post.title)
   return (
     <Link href={href} className="group mb-5 block break-inside-avoid overflow-hidden rounded-[var(--tk-radius)] border border-[var(--tk-line)] bg-[var(--tk-surface)] transition duration-300 hover:-translate-y-1">
       <div className={`relative overflow-hidden ${index % 3 === 0 ? 'aspect-[3/4]' : 'aspect-[4/3]'}`}>
         <img src={image} alt="" className="h-full w-full object-cover transition duration-700 group-hover:scale-[1.04]" />
         <div className="absolute inset-0 bg-[linear-gradient(180deg,transparent_45%,rgba(0,0,0,0.78))] opacity-80 transition group-hover:opacity-100" />
+        {category ? (
+          <span className="absolute left-4 top-4 rounded-full px-3 py-1 text-[11px] font-bold uppercase tracking-[0.14em] shadow-sm" style={{ backgroundColor: tint.bg, color: tint.on }}>{category}</span>
+        ) : null}
         <div className="absolute inset-x-0 bottom-0 p-5">
           <h2 className="editable-display line-clamp-2 text-lg font-semibold leading-snug tracking-[-0.02em] text-white">{post.title}</h2>
           <span className="mt-2 inline-flex items-center gap-1.5 text-xs font-medium text-white/70">View image <ArrowUpRight className="h-3.5 w-3.5" /></span>
@@ -339,13 +353,17 @@ function PdfArchiveCard({ post, href }: { post: SitePost; href: string }) {
 function ProfileArchiveCard({ post, href }: { post: SitePost; href: string }) {
   const avatar = getImages(post)[0]
   const role = getField(post, ['role', 'designation', 'company', 'location'])
+  const tint = badgeTint(post.slug || role || post.title)
   return (
-    <Link href={href} className={`${cardBase} flex flex-col items-center p-7 text-center`}>
-      <div className="flex h-24 w-24 items-center justify-center overflow-hidden rounded-full border border-[var(--tk-line)] bg-[var(--tk-raised)]">
+    <Link href={href} className={`${cardBase} relative flex flex-col items-center overflow-hidden p-7 text-center`}>
+      <span className="absolute inset-x-0 top-0 h-1.5" style={{ backgroundColor: tint.bg }} />
+      <div className="mt-2 flex h-24 w-24 items-center justify-center overflow-hidden rounded-full border-[3px] bg-[var(--tk-raised)]" style={{ borderColor: tint.bg }}>
         {avatar ? <img src={avatar} alt="" className="h-full w-full object-cover" /> : <UserRound className="h-10 w-10 text-[var(--tk-muted)]" />}
       </div>
       <h2 className="editable-display mt-5 text-lg font-semibold tracking-[-0.02em]">{post.title}</h2>
-      {role ? <p className="mt-1.5 text-xs font-medium uppercase tracking-[0.16em] text-[var(--tk-accent)]">{role}</p> : null}
+      {role ? (
+        <span className="mt-2 inline-flex rounded-full px-3 py-1 text-[11px] font-bold uppercase tracking-[0.14em]" style={{ backgroundColor: tint.bg, color: tint.on }}>{role}</span>
+      ) : null}
       <RatingLine post={post} center />
       <p className="mt-3 line-clamp-2 text-sm leading-6 text-[var(--tk-muted)]">{getSummary(post)}</p>
     </Link>

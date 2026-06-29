@@ -123,7 +123,7 @@ export default async function SearchPage({ searchParams }: { searchParams?: Prom
               <p className="text-xs font-black uppercase tracking-[0.24em] opacity-50">{results.length} results</p>
               <h2 className="mt-2 text-3xl font-black tracking-[-0.06em]">{query ? `Results for “${query}”` : pagesContent.search.resultsTitle}</h2>
             </div>
-            <Link href="/article" className="inline-flex items-center gap-2 rounded-full border border-[var(--editable-border)] bg-white px-5 py-3 text-sm font-black">Browse latest <ArrowRight className="h-4 w-4" /></Link>
+            <Link href="/" className="inline-flex items-center gap-2 rounded-full border border-[var(--editable-border)] bg-white px-5 py-3 text-sm font-black">Back to home <ArrowRight className="h-4 w-4" /></Link>
           </div>
 
           {results.length ? (
